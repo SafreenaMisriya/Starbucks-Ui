@@ -35,11 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onScroll() {
     // Get the position of the video widget
-    final videoPosition = _videoKey.currentContext?.findRenderObject() as RenderBox?;
-    const visibilityThreshold = 50.0; // Pixels the widget must be within to consider visible
+    final videoPosition =
+        _videoKey.currentContext?.findRenderObject() as RenderBox?;
+    const visibilityThreshold =
+        50.0; // Pixels the widget must be within to consider visible
 
     if (videoPosition != null) {
-      final videoRect = videoPosition.localToGlobal(Offset.zero) & videoPosition.size;
+      final videoRect =
+          videoPosition.localToGlobal(Offset.zero) & videoPosition.size;
       final screenSize = MediaQuery.of(context).size;
 
       final isVisible = videoRect.top + visibilityThreshold >= 0 &&
@@ -110,40 +113,36 @@ class _HomeScreenState extends State<HomeScreen> {
             child: SingleChildScrollView(
               controller: _scrollController,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     key: _videoKey,
-                    height: mediaqueryheight(
-                        0.35, context), 
-                    width: double.infinity, 
+                    height: mediaqueryheight(0.35, context),
+                    width: double.infinity,
                     child: _videoController.value.isInitialized
                         ? AspectRatio(
                             aspectRatio: _videoController.value.aspectRatio,
                             child: VideoPlayer(_videoController),
                           )
                         : const Center(
-                            child:
-                                CircularProgressIndicator(),
+                            child: CircularProgressIndicator(),
                           ),
                   ),
                   const CustomSizedBoxHeight(10),
                   const Padding(
                     padding: EdgeInsets.only(left: 12),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: CustomText(
-                        text: 'Handcrafted Curations',
-                        size: 20,
-                        color: Colors.black,
-                        weight: FontWeight.w600,
-                      ),
+                    child: CustomText(
+                      text: 'Handcrafted Curations',
+                      size: 20,
+                      color: Colors.black,
+                      weight: FontWeight.w600,
                     ),
                   ),
                   gridwidget(),
                   listwidget(context),
                   const CustomSizedBoxHeight(20),
                   learnmore(context),
-                   const CustomSizedBoxHeight(30),
+                  const CustomSizedBoxHeight(30),
                 ],
               ),
             ),
